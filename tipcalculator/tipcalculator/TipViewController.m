@@ -7,6 +7,7 @@
 //
 
 #import "TipViewController.h"
+#import "SettingsViewController.h"
 
 @interface TipViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *billTextField;
@@ -29,6 +30,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"Tip Calculator";
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(onSettingsButton)];
+    
+    [self setDefaultTipPercentage];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +53,7 @@
 */
 
 - (IBAction)onTap:(id)sender {
-//    [self.view endEditing:YES];
+    [self.view endEditing:YES];
     [self updateValues];
 }
 
@@ -56,18 +62,36 @@
 }
 
 - (void)updateValues {
+    // Get the values
     float billAmount = [self.billTextField.text floatValue];
     float sliderValue = [self.tipSlider value];
-    
-    // Always maintain 20% as maximum
-//    sliderValue = (sliderValue * 20)/100;
    
     float newTipAmount = billAmount * (sliderValue / 100);
     float totalValue = billAmount + newTipAmount;
     
+    // Populate the labels
     self.tipPercentageLabel.text = [NSString stringWithFormat:@"%0.0f", sliderValue];
     self.tipLabel.text = [NSString stringWithFormat:@"$%0.2f", newTipAmount];
     self.totalLabel.text = [NSString stringWithFormat:@"$%0.2f", totalValue];
     
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"view did appear");
+    [self setDefaultTipPercentage];
+}
+
+- (void) onSettingsButton {
+    [self.navigationController pushViewController:[[SettingsViewController alloc] init] animated:YES];
+}
+
+- (void)setDefaultTipPercentage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *defaultTipValue = [defaults stringForKey:@"defaultTipPercentage"];
+    float defaultTipPercentage = [defaultTipValue floatValue];
+    self.tipSlider.value = defaultTipPercentage > 0 ? defaultTipPercentage : 10;
+    
+    [self updateValues];
+}
+
 @end

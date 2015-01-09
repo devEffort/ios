@@ -42,7 +42,7 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                     <variation key="widthClass=compact" fixedFrame="YES">
-                        <rect key="frame" x="248" y="87" width="111" height="30"/>
+                        <rect key="frame" x="248" y="92" width="111" height="30"/>
                     </variation>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1r1-qg-GO2">
